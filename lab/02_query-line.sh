@@ -110,3 +110,21 @@
     }
 }'
 
+./curl.sh -XGET "https://127.0.0.1:9200/movies/_search?sort=title.raw&pretty" -d '
+{
+    "query" : {
+        "bool" : {
+            "must" : { "match": { "genre": "Sci-Fi"}},
+            "filter": { 
+                "range": {
+                    "year": {
+                        "lt": 1960
+                    }
+                }
+            }
+        }
+    }
+}'
+
+
+

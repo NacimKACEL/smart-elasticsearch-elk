@@ -1,0 +1,23 @@
+Setup :
+
+- Copy crt from cluster to local for ssl authetification :
+    docker cp smart-elasticsearch-elk-es01-1:/usr/share/elasticsearch/config/cer ts/es01/es01.crt /Users/nkacel/Workspace/dev/training/smart-elasticsearch-elk/crt
+- test curl :
+    curl --cacert /Users/nkacel/Workspace/dev/training/smart-elasticsearch-elk/crt/es01.crt -u elastic:changeme -H 'Content-Type: application/json' -X GET "https://localhost:9200/movies"
+
+Tools :
+- jq https://jqlang.github.io/jq/ Un outil de génération de json object.
+
+Data Source : 
+- http://media.sundog-soft.com/es/flattened.txt
+- http://media.sundog-soft.com/es/exceptions.txt
+
+Import Data :
+- wget https://files.grouplens.org/datasets/movielens/ml-latest-small.zip
+- wget media.sundog-soft.com/es8/MoviesToJson.py
+- python3 MoviesToJson.py >> moremovies.json
+
+SSL issue : 
+- https://medium.com/@vkmauryavk/resolving-sslcertverificationerror-certificate-verify-failed-unable-to-get-local-issuer-515d7317454f
+- pip install certifi 
+
